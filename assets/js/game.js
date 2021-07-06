@@ -154,12 +154,29 @@ var shop = function() {
             window.alert("You did not pick a valid option. Try again.");
             shop();
             break;
-    
     }
 };
 
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = window.prompt("What is your robot's name?");
+    }
+    console.log("Your robot's name is " + name + ".");
+    return name;
+};
+
+var getRivalName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = window.prompt("What is your rival robot's name?");
+    }
+    console.log("Your rival robot's name is " + name + ".");
+    return name;
+}
+
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -202,7 +219,7 @@ var enemyInfo = [
         attack: randomNumber(11,14)
     },
     {
-        name: window.prompt("What is your rival robot's name?"),
+        name: getRivalName(),
         attack: randomNumber(15,17)
     }
 ];
