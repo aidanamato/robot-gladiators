@@ -47,7 +47,7 @@ var fight = function(enemy) {
     }
     
     while (playerInfo.health > 0 && enemy.health > 0) {
-        if (isPLayerTurn) {
+        if (isPlayerTurn) {
             // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
             enemy.health = Math.max(0, enemy.health - damage);
@@ -144,7 +144,7 @@ var startGame = function () {
             window.alert("You have lost " + playerInfo.name + " in your battle with " + enemyInfo[i-1] + "! Game Over!");
         }
         
-        if (i < enemyInfo.length && playerInfo.health > 0) {
+        if (i < enemyInfo.length - 1 && playerInfo.health > 0) {
             newRound();
         } else {
             endGame();
@@ -175,6 +175,18 @@ var endGame = function() {
     // If player is still alive, player wins!
     if (playerInfo.health > 0) {
         window.alert("Great job, you've survived the game! You have a final score of " + playerInfo.money + "!");
+        
+        if (!localStorage.getItem("highScore")) {
+            localStorage.setItem("highScore", 0);
+        }
+        if (playerInfo.money > localStorage.getItem("highScore")) {
+            localStorage.setItem("winnerName", playerInfo.name);
+            localStorage.setItem("highScore", playerInfo.money);
+            window.alert("Congratulations! You've won with the high score!");
+        } else {
+            window.alert("You didn't beat the high score. Better luck next time!");
+        }
+        
         playAgain();
     } else {
         window.alert("You've lost your robot in battle.");
@@ -233,7 +245,7 @@ var playerInfo = {
     attack: 10,
     money: 10,
     reset: function() {
-        this.health = 100;
+        this.health = 1000;
         this.attack = 10;
         this.money = 10;
     },
